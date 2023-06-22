@@ -1,0 +1,38 @@
+import numpy as np
+import pandas as pd
+
+# Define function to calculate source level using Wittekind formula
+def calc_source_level(row):
+    k = 4.1 # constant for open water conditions
+    rho = 1025 # density of seawater in kg/m^3
+    area = row['Ship Length']**2 * np.pi/4 # effective area of propeller
+    thrust = row['Engine Mass'] * 9.81 # thrust in newtons
+    power_per_engine = row['Engine Power'] / row['no. of engines'] # power per engine in kW
+    power_density = power_per_engine / (area * row['Vessel speed']) # power density in kW/m^2
+    cavitation_no = row['Vessel speed'] / row['Cavitation Speed']
+    block_coeff = row['Block Coefficient']
+    dwt = row['DWT']
+    froude_no = row["Froude's No."]
+    # Check for division by zero or negative values
+    if (thrust == 0 or block_coeff <= 0 or cavitation_no <= 0 or cavitation_no >= 1 or dwt <= 0 or froude_no <= 0 or area <= 0):
+        return np.nan
+    else:
+        source_level = 10 * np.log10(k**2 * rho * area * power_density * dwt * froude_no**3 / thrust * (1 - cavitation_no**3) / block_coeff**2)
+        # Check for negative values
+        if source_level < 0:
+            return np.nan
+        else:
+            return source_level
+
+
+df = pd.read_csv('cleaned_AIS_Data.csv')
+
+# Add new column for source level
+df['Source level'] = df.apply(calc_source_level, axis=1)
+
+# Write updated data to CSV file
+df.to_csv('cleaned_AIS_Data.csv', index=False)
+print("wittekind executed")
+
+
+
