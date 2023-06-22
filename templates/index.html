@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Homepage</title>
+    <!-- font-awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+    />
+
+    <!-- styles -->
+<style>
+  .button {
+  background-color: linear-gradient(rgb(72, 58, 134), rgb(170, 205, 228),rgb(72, 58, 134)); /* Green */
+  border: none;
+  color: rgb(8, 4, 31);
+  padding: 8px 7px;
+  height: fit-content;
+  width: fit-content;
+  text-align: center;
+  text-decoration: bold;
+  font-size: 30px;
+  font-family: "Roboto", sans-serif;
+  margin: 0px 3px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+.button1 {
+  background-color: #c1d0d8; 
+  color: #090044; 
+  border: 1px solid #090044;
+}
+
+.button1:hover {
+  background-color: #1575a8;
+  color: rgba(228, 230, 235, 0.301);
+}
+
+
+#footer{
+    background-color: #ffffff;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 10%;
+    font-size: medium;
+}
+
+</style>
+
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css')}}" />
+  </head>
+  <body>
+    <nav>
+      <div class="nav-center">
+        <!-- nav header -->
+        <div class="nav-header">
+          <img src="{{ url_for('static', filename='images/mrcLogo.png')}}" class="logo" alt="logo" alignment="leftmargin"/>
+          
+        </div>
+        <!-- links -->
+        <ul class="links">
+          <li>
+            <a href="#">home</a>
+          </li>
+          <li>
+            <a href="https://mrc.foundationforuda.in/">about</a>
+          </li>
+          <li>
+            <a href="tool">noise-map tool</a>
+          </li>
+          <li>
+            <a href="https://mrc.foundationforuda.in/about-us/">contact</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <!-- javascript -->
+    <script src="./homepage-app.js"></script>
+<p></p><p></p><br><br><br><br>
+    <h2><b>&nbsp&nbsp &nbsp&nbsp Maritime Research Centre </b></h2>
+    <br><br>
+    <h3><p style="color: #e2e9ec; font-size: 1.55rem;">&nbsp&nbsp &nbsp&nbsp Dedicated towards Underwater Domain Awareness</p> 
+      <br>
+        <p>&nbsp&nbsp &nbsp&nbsp  As a think tank and a registered not-for-profit 
+        <br>&nbsp&nbsp &nbsp&nbsp organization (Section-8 company),the Maritime Research Center (MRC)    
+        <br>&nbsp&nbsp &nbsp&nbsp is dedicated towards promotion of Underwater Domain Awareness (UDA).
+        <br>&nbsp&nbsp &nbsp&nbsp Over the years, MRC has emerged as a platform of national and 
+        <br>&nbsp&nbsp &nbsp&nbsp regional significance, fostering dialogue and cooperation amongst 
+        <br>&nbsp&nbsp &nbsp&nbsp stakeholders from Maritime Security,Blue Economy, Marine Environment, 
+        <br>&nbsp&nbsp &nbsp&nbsp Disaster Management and Research & Innovation.</p></h3><p></p>
+<br><br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp  &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp  &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp  &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp  &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp  &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp  
+&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp  &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp   &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+<a href="./tool">
+          <button class="button button1">Use Tool</button>
+       </a>
+
+       <!-- <div id="footer" style="height:5% ;padding-top: 1px; padding-bottom: 1px; position: absolute;">
+
+      </div> -->
+
+
+  </body>
+</html>
+
+<!--deleted <button class="nav-toggle">
+  <i class="fas fa-bars"></i>
+</button>-->

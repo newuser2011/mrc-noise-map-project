@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Noise Mapping Tool</title>
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style2.css')}}" />
+
+  <style type="text/css">
+    .WebContainer {
+      width: 100%;
+      min-width: 1000px;
+      height: auto;
+    }
+
+
+    h1 {
+      text-align: center;
+      color: rgb(8, 4, 54);
+      font-family: Arial, Helvetica, sans-serif;
+      font-weight: unset
+    }
+
+    .reg {
+      font-family: Verdana, Arial, Helvetica, sans-serif;
+      font-size: 13px;
+      color: #000066;
+    }
+
+    .bold {
+      font-family: Verdana, Arial, Helvetica, sans-serif;
+      font-size: 13px;
+      color: #000066;
+      font-weight: bold;
+    }
+
+    .red {
+      color: #ff0000;
+      font-family: Verdana, Arial, Helvetica, sans-serif;
+      font-size: 13px;
+    }
+
+    .leftmargin {
+      margin-left: 0.5cm;
+    }
+
+    .top {
+      padding-top: 2px;
+    }
+
+    .footersmall {
+      font-family: Verdana, Arial, Helvetica, sans-serif;
+      font-size: 10px;
+      font-weight: bold;
+      color: #999999;
+    }
+
+    .fillin {
+      background-color: #a2b5ae;
+      border-top-width: 1px;
+      border-top-style: solid;
+      border-top-color: #000000;
+    }
+
+    .fillinblack {
+      background-color: #000000;
+    }
+
+    .tablebordernodc {
+      border: solid 1px #555555;
+      border-top: #000000;
+      border-collapse: collapse;
+    }
+
+    .bluebar {
+      background-color: #788fab;
+      text-align: center;
+      padding-top: 5px;
+      padding-bottom: 5px;
+    }
+
+    .cookie {
+      font-family: Verdana, Arial, Helvetica, sans-serif;
+      font-size: 12px;
+      background-color: #FFFFFF;
+    }
+
+    #footer {
+      background-color: #ffffff;
+      margin-top: 0px;
+      margin-bottom: 0px;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      height: 10%;
+      font-size: medium;
+
+    }
+
+    .genbttn {
+
+      background-color: #091239;
+      color: white;
+      font-size: 16px;
+      border-radius: 9px;
+      padding: 12px 20px;
+    }
+
+    #grad1 {
+      height: 40px;
+      background-color: rgb(165, 209, 223);
+      /* For browsers that do not support gradients */
+      background-image: linear-gradient(rgb(66, 62, 128), rgb(170, 205, 228), rgb(66, 62, 128));
+      padding-top: 1px;
+    }
+
+
+    #canvas {
+      width: 850px;
+      /*750 500*/
+      height: 567px;
+      border: 2px solid #ffffff;
+      cursor: crosshair;
+      background-image: url("../static/images/indianocean2.png");
+
+    }
+
+    .rectangle {
+      border: 1px solid #FF0000;
+      position: absolute;
+    }
+
+    img {
+      object-fit: cover;
+    }
+
+    .button {
+      background-color: linear-gradient(rgb(72, 58, 134), rgb(170, 205, 228), rgb(72, 58, 134));
+      /* Green */
+      border: none;
+      color: rgb(228, 226, 235);
+      padding: 5px 7px;
+      height: fit-content;
+      text-align: center;
+      text-decoration: bold;
+      font-size: 15px;
+      margin: 0px 3px;
+      transition-duration: 0.4s;
+      cursor: pointer;
+    }
+
+    .button1 {
+      background-color: #070650;
+      color: rgb(238, 234, 234);
+      border: 1px solid #bababd;
+    }
+
+    .button1:hover {
+      background-color: #0e0ca7;
+      color: rgb(255, 255, 255);
+    }
+  </style>
+
+  <!--<link rel="stylesheet" href="./style.css" />-->
+</head>
+
+<div class="WebContainer">
+
+  <body style="background-color: rgb(172, 168, 168); background-image: url(../static/images/wallp2.png);">
+
+    <nav>
+      <div class="nav-center">
+        <!-- nav header -->
+        <div class="nav-header">
+          <img src="{{ url_for('static', filename='images/mrcLogo.png')}}" class="logo" alt="logo"
+            alignment="leftmargin" />
+
+        </div>
+
+        <font style="font-size: xx-large; color:#0f0850"> &nbsp&nbsp &nbsp&nbsp 3-DIMENSIONAL NOISE MAP</font>
+        <!-- links -->
+        <ul class="links">
+          <li>
+            <a href="/">home</a>
+          </li>
+          <li>
+            <a href="https://mrc.foundationforuda.in/">about</a>
+          </li>
+          <li>
+            <a href="https://mrc.foundationforuda.in/about-us/">contact</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <table width="100%" border="0" cellpadding="0" cellspacing="0">
+      <!--<tr>
+    <td colspan="2" style="padding-left:5%; padding-top: 3px;  padding-bottom: 1px; background:#ffffff" align="center">
+      <a href="https://mrc.foundationforuda.in/" class="nobg"><img src="A:\BE college\BE project\MRC Project\MRC Project\mrc final logo.png" alt="MRC Logo" width="200" height="70" style="border:0; float:left; " /></a>
+      <h1 style="color:rgb(17, 3, 80); background:#ffffff;"><b> <font size="6 px" style="font-family: Geneva, Verdana, sans-serif;">
+        3D RADIATED NOISE MAP &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 
+        </font></b></h1></td>
+    </tr> -->
+      <tr>
+        <td colspan="2">
+          <div id="grad1" padding: 1px 10px;>
+            <p style=" margin-top: 8px;margin-bottom: 8px; text-align: center; color: #020220;"><b>&nbsp&nbsp &nbsp&nbsp
+                Mapping of Indian ocean region for underwater acoustic noise. </b></p>
+          </div>
+        </td>
+      </tr>
+    </table>
+
+    <div align="center" style="padding-top: 5px;" style="background-color: #555555;">
+
+      <canvas id="canvas" width="850" height="567"></canvas>
+      <div id="output"></div>
+
+      <script>
+
+
+        // get references to the canvas and context
+        var canvas = document.getElementById("canvas");
+        var ctx = canvas.getContext("2d");
+
+        // style the context
+        ctx.strokeStyle = "red";
+        ctx.lineWidth = 2;
+
+        // calculate where the canvas is on the window
+        // (used to help calculate mouseX/mouseY)
+        var canvasOffset = canvas.getBoundingClientRect();
+        var offsetX = canvasOffset.left;
+        var offsetY = canvasOffset.top;
+
+        // this flage is true when the user is dragging the mouse
+        var isDown = false;
+
+        // these vars will hold the starting mouse position
+        var startX;
+        var startY;
+
+        let x1 = null
+        let x2 = null
+        let y1 = null
+        let y2 = null
+        let C = null
+        let A = null
+        let D = null
+        let B = null
+
+        function handleMouseDown(e) {
+          console.log('handleMouseDown')
+          console.log(e)
+          e.preventDefault();
+          e.stopPropagation();
+
+          // save the starting x/y of the rectangle
+          startX = parseInt(e.clientX - offsetX);
+          startY = parseInt(e.clientY - offsetY);
+
+          // set a flag indicating the drag has begun
+          isDown = true;
+        }
+
+        function handleMouseUp(e) {
+          console.log('handleMouseUp')
+          console.log(e)
+          e.preventDefault();
+          e.stopPropagation();
+
+          // the drag is over, clear the dragging flag
+          isDown = false;
+          // console.log(x1, x2, y1, y2)
+        }
+
+        function handleMouseOut(e) {
+          console.log('handleMouseOut')
+          console.log(e)
+          e.preventDefault();
+          e.stopPropagation();
+
+          // the drag is over, clear the dragging flag
+          isDown = false;
+        }
+
+        function handleMouseMove(e) {
+          console.log('handleMouseMove')
+          console.log(e)
+          e.preventDefault();
+          e.stopPropagation();
+
+          // if we're not dragging, just return
+          if (!isDown) {
+            return;
+          }
+
+          // get the current mouse position
+          mouseX = parseInt(e.clientX - offsetX);
+          mouseY = parseInt(e.clientY - offsetY);
+
+          // Put your mousemove stuff here
+
+          // clear the canvas
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+          // calculate the rectangle width/height based
+          // on starting vs current mouse position
+          var width = mouseX - startX;
+          var height = mouseY - startY;
+
+          // draw a new rect from the start position 
+          // to the current mouse position
+          ctx.strokeRect(startX, startY, width, height);
+
+          x1 = (startX * 0.0541176)
+          y1 = (startY * 0.0583)
+          x2 = (width * 0.0541176)
+          y2 = (height * 0.0583)
+
+          var north_map = 23.0000 - y1;
+          var south_map = (23.0 - y1) - y2;
+          var east_map = (57.15 + x1) + x2;
+          var west_map = 57.1500 + x1;
+
+          C = north_map;
+          A = south_map;
+          D = east_map;
+          B = west_map;
+
+
+          document.getElementById("north").value = north_map.toString();
+          document.getElementById("west").value = west_map.toString();
+          document.getElementById("east").value = east_map.toString();
+          document.getElementById("south").value = south_map.toString();
+
+        }
+
+        document.getElementById('canvas').addEventListener('mousedown', function (e) {
+          handleMouseDown(e);
+        });
+        document.getElementById('canvas').addEventListener('mousemove', function (e) {
+          handleMouseMove(e);
+        });
+        document.getElementById('canvas').addEventListener('mouseup', function (e) {
+          handleMouseUp(e);
+        });
+        document.getElementById('canvas').addEventListener('mouseout', function (e) {
+          handleMouseOut(e);
+        });
+
+
+        var imageLeft;
+        var imageTop;
+        var imageRight;
+        var imageBottom;
+
+        var drawing = 0;
+
+        var hscroll = 0;
+        var vscroll = 0;
+
+
+
+
+      </script>
+      <hr>
+      <form action="{{ url_for('generateHeatmap')}}" method="post" name="mapform"
+        style="background-image: linear-gradient(rgb(170, 205, 228),rgb(66, 62, 128));">
+        <br>
+        <table cellpadding="2" style="font-size: 20px;">
+          <tr class="reg">
+            <td class="bold" align="left" style="font-size: 15px;">Start Point (latitude coordinate):</td>
+            <td><input type="text" id="north" size="16" value="23.0000" name="splat" /></td>
+          </tr>
+
+          <tr class="reg">
+            <td class="bold" align="left" style="font-size: 15px;">Start Point (longitude coordinates):</td>
+            <td><input type="text" id="west" size="16" value="57.1500" name="splong" /></td>
+          </tr>
+
+          <tr class="reg">
+            <td class="bold" align="left" style="font-size: 15px;">End Point (latitude coordinates):</td>
+            <td><input type="text" id="south" size="16" value="-10.0500" name="eplat" /></td>
+          </tr>
+
+          <tr class="reg">
+            <td class="bold" align="left" style="font-size: 15px;">End Point (longitude coordinates):</td>
+            <td><input type="text" id="east" size="16" value="103.1500" name="eplong" /></td>
+          </tr>
+          <td align="center" colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <!-- <button class="button button1" padding="2px" name="go" onclick="returnIndex()">Go
+                back</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
+
+          </td>
+          </tr>
+        </table>
+        <input type="button" class="button button1" padding="2px" id="redrawMap" value="Redraw World Map" onclick="drawRect()" />
+        <button type="submit" class="button button1" padding="2px" id="redraw">Generate Noise Map</button>
+      </form>
+    </div>
+    <br><br>
+    <p
+      style="color: rgb(222, 222, 228); text-align: center;margin-top: 0px; margin-bottom: 0px; background-color: #070650 ;">
+      Software for shipping noise AIS data | Group 45: Aniesh Sarthak Ankit | MRC: Foundation for Maritime research
+    </p>
+
+    <script>
+
+      function returnIndex() {
+        window.location.href = '/';
+      }
+      function drawRect() {
+
+        var ctx = canvas.getContext('2d');
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        ctx.lineWidth = "2";
+        ctx.strokeStyle = "red";
+
+        drx = (document.getElementById("west").value - 57.15)/0.0541176;
+        dry = (23.0 - document.getElementById("north").value)/0.0583;
+        drh = (23.0 - document.getElementById("south").value)/0.0583 - dry;
+        drw = (document.getElementById("east").value - 57.15)/0.0541176 - Math.abs(drx);
+
+        ctx.strokeRect(drx, dry, drw, drh);
+      }
+
+
+    </script>
+
+</div>
+
+<!-- <div id="footer" style="height:3%; padding-top: 1px; padding-bottom: 1px; position:absolute">
+
+
+</div> -->
+
+</body>
+</div>
+
+</html>

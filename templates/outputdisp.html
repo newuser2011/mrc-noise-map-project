@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Noise Map Output</title>
+    <!-- font-awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+    />
+
+    <!-- styles -->
+<style>
+
+.tablink {
+  background-color: #ffffff;
+  color: black;
+  font-size: 30px;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  font-size: 20px;
+  width: 25%;
+}
+
+.tablink:hover {
+  background-color: #87a1af;
+  color: white;
+}
+
+/* Style the tab content */
+.tabcontent {
+  color: white;
+  background-image: linear-gradient(#dee2e6, rgb(231, 235, 238),rgb(255, 255, 255));
+  display: none;
+  font-size: 37px;
+  padding: 3px;
+  text-align: center;
+  padding-bottom: 3px;
+}
+
+#London {color:rgb(173, 88, 88); }
+#Paris {color:rgb(97, 168, 97); }
+#Tokyo {color:rgb(81, 81, 192); }
+#Oslo {color:rgb(180, 142, 65); }
+
+  .button {
+  background-color: linear-gradient(rgb(72, 58, 134), rgb(170, 205, 228),rgb(72, 58, 134)); /* Green */
+  border: none;
+  color: rgb(8, 4, 31);
+  padding: 8px 7px;
+  height: fit-content;
+  width: fit-content;
+  text-align: center;
+  text-decoration: bold;
+  font-size: 30px;
+  font-family: "Roboto", sans-serif;
+  margin: 0px 3px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+.button1 {
+  background-color: #c1d0d8; 
+  color: #090044; 
+  border: 1px solid #090044;
+}
+
+.button1:hover {
+  background-color: #1575a8;
+  color: rgba(228, 230, 235, 0.301);
+}
+
+
+#footer{
+    background-color: #ffffff;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 10%;
+    font-size: medium;
+}
+
+#canvas {
+        border:2px solid #ffffff; 
+        cursor: crosshair;
+        background-image: url("heatmap.html");
+        background-repeat: no-repeat;   
+        background-size: cover;
+            
+}
+
+#canvas2 {
+        border:2px solid #ffffff; 
+        cursor: crosshair;
+        background-image: linear-gradient(red, yellow,rgb(17, 233, 17),rgb(4, 37, 224));
+        background-repeat: no-repeat;   
+        background-size: cover; 
+}
+
+</style>
+
+    
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css')}}" />
+  </head>
+
+  <body>
+    <nav>
+      <div class="nav-center">
+        <!-- nav header -->
+        <div class="nav-header">
+          <img src="{{ url_for('static', filename='images/mrcLogo.png')}}" class="logo" alt="logo" alignment="leftmargin"/>
+          
+        </div>
+
+        <font style="font-size: xx-large; color:#0f0850" ><b> &nbsp&nbsp NOISE MAP OUTPUT </b></font>
+        <!-- links -->
+        <ul class="links">
+          <li>
+            <a href="/">home</a>
+          </li>
+          <li>
+            <a href="about.html">about</a>
+          </li>
+          <li>
+            <a href="contact.html">contact</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <script>
+      function init() {
+       // Retrieving the text input's value which was stored into localStorage
+       var mytext = localStorage.getItem("mytext");
+
+       // Writing the value in the document
+       document.write(mytext);
+   }
+ </script>
+
+<div id="London" class="tabcontent" style="color:rgb(207, 9, 9)" onload="init();">
+  <b>Coordinate Position: {{coordinates}}</b> <div id="latlong"></div>
+ <script src="vars.js">myFunction()</script>
+ 
+</div>  
+
+<div id="Paris" class="tabcontent" style="color:rgb(23, 116, 15)">
+  <b>Average Noise: </b>970 dB
+ 
+</div>
+
+<div id="Tokyo" class="tabcontent" style="color:rgb(4, 8, 196)">
+  <b>Sonar Depth: </b>60 m
+
+</div>
+
+<div id="Oslo" class="tabcontent" style="color:rgb(204, 153, 12)">
+  <b>Receiver Density: </b> 1300
+
+</div>
+
+<button class="tablink" onclick="openCity('London', this, 'red'),  myFunction();" id="defaultOpen">User Position</button>
+<button class="tablink" onclick="openCity('Paris', this, 'green')">Avg Noise</button>
+<button class="tablink" onclick="openCity('Tokyo', this, 'blue')">Sonar Depth </button>
+<button class="tablink" onclick="openCity('Oslo', this, 'orange')">Reciever Density</button>
+    
+<div align="center" style="padding-top: 5px; padding-bottom: 3px;" style="background-color: #136fbb;">
+  
+.<br>
+<!-- javascript -->
+
+<script>
+
+  function openCity(cityName,elmnt,color) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablink");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].style.backgroundColor = "";
+    }
+    document.getElementById(cityName).style.display = "block";
+    elmnt.style.backgroundColor = color;
+  
+ }
+  // Get the element with id="defaultOpen" and click on it
+  document.getElementById("defaultOpen").click();
+  
+      </script>
+
+
+  <!--
+  
+  <table><tr class="reg"><td align="left"><span class="bold red">Indian Ocean Region</span>
+  </td></tr>
+  </table>
+
+   <canvas id="canvas" style="width:1300px; height:655px; left:20%"></canvas>  
+  -->
+
+ 
+  <!-- <iframe src='heatmap' title="description" style="width:1300px; height:700px; left:20%"></iframe>
+
+
+  <h2 style="position: absolute; top:29%; right:7% ; font-size:25px; color:rgb(8, 3, 82)">115 dB</h2>  
+  <canvas id="canvas2" style="width:60px; height:380px; position:absolute; top:33%; right:7.5%"></canvas>  
+  <h2 style="position: absolute; top:72%; right:7%; font-size:25px; color:rgb(197, 195, 228)">42 dB</h2> 
+  <a href="tool" style="position:absolute; top:80%; right:5.5%">
+    <button class="button button1">Use Tool</button>
+ </a> 
+<p></p> -->
+
+<iframe src="3d_scatter_map" title="description2" style="position:absolute; width:55%; height:650px; left:5%"></iframe>
+
+  <iframe src="heatmap" title="description" style="position:absolute; top:60% ;width:31%; height:310px; right:4%"></iframe>
+
+  <iframe src="3d_scatter_plot" title="description1" style="position:absolute; width:20%; height:200px; right:15%"></iframe>
+  
+
+  <a href="3d_scatter_plot" style="position:absolute; top:34%; right:6%">
+    <button class="button button1" style="font-size: 1.5em;">Render 3D</button>
+ </a> 
+
+ <!-- <h2 style="position: absolute; top:29%; right:6.5% ; font-size:1.7rem; color:rgb(8, 3, 82)">115 dB</h2>  
+  <canvas id="canvas2" style="position:absolute; width:2.5%; height:41%; top:33%; right:7.4%"></canvas>  
+  <h2 style="position:absolute; top:75%; right:6.5%; font-size: 1.7rem;; color:rgb(197, 195, 228)">42 dB</h2> -->
+
+  <a href="tool" style="position:absolute; top:45%; right:6%">
+    <button class="button button1" style="font-size: 1.8em;">Use Tool</button>
+ </a> 
+<p></p>
+
+
+       <!-- <div id="footer" style="height:3% ;padding-top: 1px; padding-bottom: 1px; position: absolute;">
+
+      </div> -->
+
+
+  </body>
+</html>
+
+<!--deleted <button class="nav-toggle">
+  <i class="fas fa-bars"></i>
+</button>-->
